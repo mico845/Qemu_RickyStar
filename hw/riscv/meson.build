@@ -14,4 +14,7 @@ riscv_ss.add(when: 'CONFIG_RISCV_IOMMU', if_true: files(
 	'riscv-iommu.c', 'riscv-iommu-pci.c', 'riscv-iommu-sys.c', 'riscv-iommu-hpm.c'))
 riscv_ss.add(when: 'CONFIG_MICROBLAZE_V', if_true: files('microblaze-v-generic.c'))
 
+
+riscv_ss.add(when: 'CONFIG_RICKY_STAR', if_true: files('ricky_star.c'))
+
 hw_arch += {'riscv': riscv_ss}

@@ -119,3 +119,8 @@ config SPIKE
     select HTIF
     select RISCV_ACLINT
     select SIFIVE_PLIC
+
+
+config RICKY_STAR
+    bool
+    select SERIAL
