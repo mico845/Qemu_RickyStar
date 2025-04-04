@@ -8,35 +8,29 @@
 #include "hw/block/flash.h"
 #include "qom/object.h"
 
-#define RICKY_STAR_CPUS_MAX    8
-#define RICKY_STAR_SOCKETS_MAX 8
+#define RICKY_STAR_CPUS_MAX    1
 
 /* === Machine === */
 
 #define TYPE_RISCV_RICKY_STAR_MACHINE MACHINE_TYPE_NAME("ricky-star")
-typedef struct RISCVVirtState RISCVVirtState;
-#define RISCV_VIRT_MACHINE(obj) \
-OBJECT_CHECK(RISCVVirtState, (obj), TYPE_RISCV_RICKY_STAR_MACHINE)
+typedef struct RickyStarState RickyStarState;
+#define RISCV_RICKY_STAR_MACHINE(obj) \
+OBJECT_CHECK(RickyStarState, (obj), TYPE_RISCV_RICKY_STAR_MACHINE)
 
 
-struct RISCVVirtState {
+struct RickyStarState {
     /*< private >*/
     MachineState parent;
 
     /*< public >*/
-    RISCVHartArrayState soc[RICKY_STAR_SOCKETS_MAX];
+    RISCVHartArrayState cpu;
 
 };
 
 enum {
     RICKY_STAR_MROM,
-    RICKY_STAR_SRAM,
-    RICKY_STAR_UART0,
-    RICKY_STAR_DRAM,
-};
-
-enum {
-    RICKY_STAR_UART0_IRQ = 10,
+    RICKY_STAR_UART,
+    RICKY_STAR_DRAM
 };
 
 #endif // HW_RISCV_RICKY_STAR__H
