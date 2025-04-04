@@ -7,12 +7,12 @@ if [ ! -d "$HELLOWORLD_FOLDER/output" ]; then
 fi
 
 # 编译汇编文件helloworld.s到obj文件
-$CROSS_PREFIX-gcc -march=rv32ima -mabi=ilp32 -x assembler-with-cpp -c helloworld.s -o $HELLOWORLD_FOLDER/output/helloworld.o
+$CROSS_PREFIX-gcc -march=rv32ima -mabi=ilp32 -x assembler-with-cpp -c $HELLOWORLD_FOLDER/helloworld.s -o $HELLOWORLD_FOLDER/output/helloworld.o
 
 echo "> helloworld.o"
 
 # 使用链接脚本链接obj文件生成elf可执行文件
-$CROSS_PREFIX-gcc -march=rv32ima -mabi=ilp32 -nostartfiles -T memory.lds -Wl,-Map=$HELLOWORLD_FOLDER/output/helloworld.map -Wl,--gc-sections $HELLOWORLD_FOLDER/output/helloworld.o -o $HELLOWORLD_FOLDER/output/helloworld.elf
+$CROSS_PREFIX-gcc -march=rv32ima -mabi=ilp32 -nostartfiles -T $HELLOWORLD_FOLDER/memory.lds -Wl,-Map=$HELLOWORLD_FOLDER/output/helloworld.map -Wl,--gc-sections $HELLOWORLD_FOLDER/output/helloworld.o -o $HELLOWORLD_FOLDER/output/helloworld.elf
 
 echo "> helloworld.elf"
 

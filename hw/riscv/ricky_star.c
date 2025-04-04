@@ -11,9 +11,8 @@
 #include "hw/char/serial-mm.h"
 
 static const MemMapEntry ricky_star_memmap[] = {
-        [RICKY_STAR_MROM]  =        {        0x0,        0x8000  },
-        [RICKY_STAR_UART]  =        { 0x10000000,         0x100  },
-
+        [RICKY_STAR_MROM]  =        {        0x0,           0x28 },
+        [RICKY_STAR_UART]  =        { 0x10000000,          0x100 },
         [RICKY_STAR_DRAM]  =        { 0x80000000,        0x80000 },
 };
 
@@ -58,8 +57,8 @@ static void ricky_star_setup_rom_reset_vec(MachineState *machine, RISCVHartArray
             0x00028067,                  /*     jr     t0 */                    // 24
             start_addr,                  /* start: .dword */                    // 28
             start_addr_hi32,                                                    // 32
-            fdt_load_addr,               /* fdt_laddr: .dword */
-            0x00000000,
+            fdt_load_addr,               /* fdt_laddr: .dword */                // 36
+            0x00000000,                                                         // 40
             /* fw_dyn: */
     };
     if (riscv_is_32bit(harts)) {
@@ -121,7 +120,6 @@ static void ricky_star_cpu_create(MachineState *machine)
                             0, &error_abort);
     object_property_set_int(OBJECT(&s->cpu), "num-harts",
                             RICKY_STAR_CPUS_MAX, &error_abort);
-
     qemu_log("CPU initialized\r\n");
     sysbus_realize(SYS_BUS_DEVICE(&s->cpu), &error_abort);
     qemu_log("Sysbus realized\r\n");
